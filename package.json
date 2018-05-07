@@ -2,7 +2,7 @@
   "name": "@carlos22ivan/kscli",
   "description": "carlos22ivan-kscli",
   "author": "carlos22ivan <carlos22ivan@gmail.com>",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "GPL-3.0",
   "scripts": {
     "start": "node ./bin/kscli"
