@@ -1,4 +1,6 @@
-//dependencias
+#!/usr/bin/env node
+
+//  dependencias
 const program = require('commander')
 const path = require('path')
 const fs = require('fs')
