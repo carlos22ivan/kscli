@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: consumer
+  namespace: default
+  labels:
+    env: development
+    app: consumer
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      name: consumer
+      labels:
+        app: consumer
+    spec:
+      containers:
+        - name: consumer-api
+          image: us.gcr.io/smartcart-164912/consumer-api:latest
+          livenessProbe:
+            httpGet:
+              path: /api/v1/carts/health
+              port: 1337
+          readinessProbe:
+            httpGet:
+              path: /api/v1/carts/health
+              port: 1337
+          envFrom:
+            - configMapRef:
+                name: consumer-config-map
+          resources:
+            requests:
+              cpu: 100m

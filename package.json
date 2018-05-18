@@ -2,24 +2,25 @@
   "name": "@carlos22ivan/kscli",
   "description": "carlos22ivan-kscli",
   "author": "carlos22ivan <carlos22ivan@gmail.com>",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "GPL-3.0",
   "scripts": {
     "start": "node ./bin/kscli"
   },
   "main": "bin/kscli",
   "bin": {
-        "kscli": "./bin/kscli.js"
-},
+    "kscli": "./bin/kscli.js"
+  },
   "repository": {
-        "type": "git",
-        "url": "https://github.com/carlos22ivan/kscli"
-},
+    "type": "git",
+    "url": "https://github.com/carlos22ivan/kscli"
+  },
   "dependencies": {
     "child_process": "^1.0.2",
     "colors": "^1.2.4",
     "commander": "^2.15.1",
     "fs": "0.0.1-security",
+    "glob": "^7.1.2",
     "js-yaml": "^3.11.0",
     "path": "^0.12.7"
   }
