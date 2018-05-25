@@ -21,7 +21,7 @@ const kindsCommand = {
 let directorios = []
 
 program
-    .version('2.0.0')
+    .version('2.0.1')
     .arguments('[paths...]')
     .description('aqui deberia decir lo que hace :v')
     .option('-e, --env <env>', 'set enviroment filename, default is _development.yaml.')
