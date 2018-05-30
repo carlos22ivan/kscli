@@ -52,7 +52,7 @@ kscli searches the selected files for the extension files ".yaml" with the "type
 
 ##### framework
 
- * cluster <-- aqui estamos
+ * cluster <-- here we are
     * project-a
         * folder-1
         * folder-2
