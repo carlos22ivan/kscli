@@ -21,11 +21,11 @@ const kindsCommand = {
 let directorios = []
 
 program
-    .version('2.0.1')
+    .version('2.0.3')
     .arguments('[paths...]')
-    .description('aqui deberia decir lo que hace :v')
+    .description('kscli searches the selected files for the extension files ".yaml" with the "type" tag requested, then executes the drop order for k8s.')
     .option('-e, --env <env>', 'set enviroment filename, default is _development.yaml.')
-    .option('-k, --kind <kinds>', 'set (srv -> service), is necessary or default is all?.')
+    .option('-k, --kind <kinds>', 'set kinds: srv -> Service, cfm -> ConfigMap, dep -> Deployment, hpa -> HorizontalPodAutoscaler, ing -> Ingress, nsp -> Namespace')
     .option('-f, --file <files>', 'add static files.')
     .action((params) => directorios = params)
     .parse(process.argv)
@@ -44,30 +44,37 @@ directorios.forEach(directorio => {
  **/
 let auxDirectorios = []
 directorios.forEach((directorio, index, array) => {
-    if (fs.lstatSync(directorio).isDirectory())
-        auxDirectorios.push(directorio)
+    try {
+        if (fs.lstatSync(directorio).isDirectory())
+            auxDirectorios.push(directorio)
+    } catch (err) {
+        let msgWarning = `warning: the folder : "${directorio}" not exist.`
+        print(msgWarning, 'yellow')
+    }
 })
 directorios = auxDirectorios
 
 /**
- * valida que exista minimo un kind
+ * si existe un kind
  * crea un listado de kind requested
  * verifica que los kind sean validos
  * asigna el nombre del kind requested
  * verifica que exista minimo un kind requested
  **/
-if (!program.kind) print('-k options is required.', 'error')
-let kindsRequest = program.kind.split(',')
-kindsRequest = kindsRequest.filter((kind) => {
-    let msgWarning = `warning: the kind requested: "${kind}" is not valid kind.`
-    if (!kindsCommand[kind]) print(msgWarning, 'yellow')
-    return kindsCommand[kind]
-})
-kindsRequest.forEach((item, index, array) => {
-    array[index] = kindsCommand[item]
-})
-if (!kindsRequest.length) print('kind requested not found.', 'error')
-
+let kindsRequest = []
+if (program.kind) {
+    print('-k options is required.', 'error')
+    kindsRequest = program.kind.split(',')
+    kindsRequest = kindsRequest.filter((kind) => {
+        let msgWarning = `warning: the kind requested: "${kind}" is not valid kind.`
+        if (!kindsCommand[kind]) print(msgWarning, 'yellow')
+        return kindsCommand[kind]
+    })
+    kindsRequest.forEach((item, index, array) => {
+        array[index] = kindsCommand[item]
+    })
+    if (!kindsRequest.length) print('kind requested not found.', 'error')
+}
 /**
  * lista los files candidatos name solicitados
  **/
@@ -92,7 +99,7 @@ for (let i = 0; i < kindsRequest.length + 1; ++i) matrizCandidatos[i] = [];
 directorios.forEach((directorio) => {
     fs.readdirSync(directorio).forEach(filename => {
         if (!filename.endsWith('.yaml')) return
-        if (!files.indexOf(filename)) matrizCandidatos[0].push(path.join(directorio, filename))
+        if (files.indexOf(filename) > -1) matrizCandidatos[0].push(path.join(directorio, filename))
         let filekind = obtenerKindOfYamlFile(filename, directorio)
         if (filekind === undefined) return
         let kindsRequestIndex = kindsRequest.indexOf(filekind.toLowerCase())
@@ -106,7 +113,10 @@ matrizCandidatos.forEach((value, index, array) => {
         listaCandidatos.push(value)
     })
 })
-recorrerListaCandidatos(listaCandidatos, 0)
+if (listaCandidatos.length)
+    recorrerListaCandidatos(listaCandidatos, 0)
+else
+    print('warning: no file complies with the conditions', 'yellow')
 
 /**
  * Funciones
