@@ -2,11 +2,18 @@
   "name": "@carlos22ivan/kscli",
   "description": "carlos22ivan-kscli",
   "author": "carlos22ivan <carlos22ivan@gmail.com>",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "license": "GPL-3.0",
   "scripts": {
     "start": "node ./bin/kscli"
   },
+  "keywords": [
+    "k8s",
+    "deploy",
+    "cluster",
+    "fast",
+    "easy"
+  ],
   "main": "bin/kscli",
   "bin": {
     "kscli": "./bin/kscli.js"
