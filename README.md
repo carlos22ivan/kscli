@@ -10,9 +10,9 @@ kscli searches the selected files for the extension files ".yaml" with the "type
 
 ## Requirements
 
-* j2  (python) link and quick install
+* j2  (python)
 
-* node version x or above
+* node version 8.11.2 or above
 
 ## Installation
 
