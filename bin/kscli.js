@@ -21,7 +21,7 @@ const kindsCommand = {
 let directorios = []
 
 program
-    .version('2.0.3')
+    .version('2.0.4')
     .arguments('[paths...]')
     .description('kscli searches the selected files for the extension files ".yaml" with the "type" tag requested, then executes the drop order for k8s.')
     .option('-e, --env <env>', 'set enviroment filename, default is _development.yaml.')
