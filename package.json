@@ -1,8 +1,8 @@
 {
   "name": "@carlos22ivan/kscli",
   "description": "carlos22ivan-kscli",
-  "author": "carlos22ivan <carlos22ivan@gmail.com>",
-  "version": "2.0.5",
+  "author": "jduartech and carlos22ivan",
+  "version": "2.0.6",
   "license": "GPL-3.0",
   "scripts": {
     "start": "node ./bin/kscli"
@@ -30,5 +30,9 @@
     "glob": "^7.1.2",
     "js-yaml": "^3.11.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-node6": "^11.0.0"
   }
 }
